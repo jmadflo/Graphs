@@ -1,21 +1,21 @@
 def earliest_ancestor(ancestors, starting_node):
-    # verify at least one parent of the starting_node or else return -1
+    relationships = {} # keys are each value 
     queue = []
     parent = None
     for pair in ancestors:
-        if starting_node == pair[1]:
-            parent = pair
-            break
-    # print(parent)
-    if parent == None:
+        if pair[1] in relationships:
+            relationships[pair[1]].add(pair[0])
+        else:
+            relationships[pair[1]] = {pair[0]}
+        if pair[0] not in relationships: # makes sure highest generation ancestors have an empty set
+            relationships[pair[0]] = set()
+    # print(relationships)
+    if len(relationships[starting_node]) == 0: # no ancestors
         return -1
-    queue.append(parent)
-    while len(queue) > 0:
-        # print(queue)
-        node = queue.pop(0)
-        parent = node[0]
-        for pair in ancestors:
-            if pair[1] == parent:
-                queue.append(pair)
-                break
-    return parent
+    next_gen = {starting_node}
+    while len(next_gen) > 0:
+        current_gen = next_gen
+        next_gen = set()
+        for node in current_gen:
+            next_gen = next_gen | relationships[node]
+    return min(current_gen)
