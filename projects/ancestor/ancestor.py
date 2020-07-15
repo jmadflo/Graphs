@@ -1,7 +1,5 @@
 def earliest_ancestor(ancestors, starting_node):
     relationships = {} # keys are each value 
-    queue = []
-    parent = None
     for pair in ancestors:
         if pair[1] in relationships:
             relationships[pair[1]].add(pair[0])
