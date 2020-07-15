@@ -1,5 +1,5 @@
 def earliest_ancestor(ancestors, starting_node):
-    relationships = {} # keys are each value 
+    relationships = {} # keys are each child and parents are values although every node with no parent has empty set as value
     for pair in ancestors:
         if pair[1] in relationships:
             relationships[pair[1]].add(pair[0])
