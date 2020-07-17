@@ -16,4 +16,5 @@ def earliest_ancestor(ancestors, starting_node):
         next_gen = set()
         for node in current_gen:
             next_gen = next_gen | relationships[node]
+        print(next_gen)
     return min(current_gen)
